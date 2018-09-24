@@ -1,0 +1,44 @@
+     /* ====================================================================== */
+     /* >>PRE-COMPILER<<                                                       */
+     /*   >>CRTCMD<< CRTSRVPGM    SRVPGM(&LI/&OB);                             */
+     /*   >>COMPILE<<                                                          */
+     /*     >>PARM<< MODULE(&LI/LSTJOBR1  +                                    */
+     /*                                );                                      */
+     /*     >>PARM<< EXPORT(*SRCFILE);                                         */
+     /*     >>PARM<<   SRCFILE(&SL/&SF);                                       */
+     /*     >>PARM<<   SRCMBR(&SM);                                            */
+     /*     >>PARM<< ACTGRP(*CALLER);                                          */
+     /*     >>PARM<< BNDSRVPGM(*LIBL/BASICS1);                                 */
+     /*     >>PARM<< ALWUPD(*YES);                                             */
+     /*     >>PARM<< ALWLIBUPD(*YES);                                          */
+     /*     >>PARM<< TEXT('Tools/400: List Jobs');                             */
+     /*     >>PARM<< TGTRLS(V6R1M0);                                           */
+     /*     >>PARM<< DETAIL(*BASIC);                                           */
+     /*   >>END-COMPILE<<                                                      */
+     /*   >>LINK<<                                                             */
+     /*   >>END-LINK<<                                                         */
+     /*   >>EXECUTE<<                                                          */
+     /* >>END-PRE-COMPILER<<                                                   */
+     /* ====================================================================== */
+
+STRPGMEXP PGMLVL(*CURRENT) SIGNATURE('Version 2.1')
+
+  EXPORT SYMBOL('LSTJOBR1_f_cloJobLst')
+  EXPORT SYMBOL('LSTJOBR1_f_getFirstJob')
+  EXPORT SYMBOL('LSTJOBR1_f_getNextJob')
+  EXPORT SYMBOL('LSTJOBR1_f_getNumJobAvl')
+  EXPORT SYMBOL('LSTJOBR1_f_opnJobLst')
+  EXPORT SYMBOL('LSTJOBR1_f_rtvJobA')
+
+ENDPGMEXP
+
+STRPGMEXP PGMLVL(*PRV    ) SIGNATURE(x'FC7B1E63785F206B146B2671D5DDA7EE')
+
+  EXPORT SYMBOL('LSTJOBR1_f_cloJobLst')
+  EXPORT SYMBOL('LSTJOBR1_f_getFirstJob')
+  EXPORT SYMBOL('LSTJOBR1_f_getNextJob')
+  EXPORT SYMBOL('LSTJOBR1_f_getNumJobAvl')
+  EXPORT SYMBOL('LSTJOBR1_f_opnJobLst')
+  EXPORT SYMBOL('LSTJOBR1_f_rtvJobA')
+
+ENDPGMEXP
