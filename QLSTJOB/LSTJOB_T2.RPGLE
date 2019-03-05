@@ -22,12 +22,12 @@
       *=====================================================================*
       *   >>PRE-COMPILER<<                                                  *
       *     >>CRTCMD<<  CRTRPGMOD    MODULE(&LI/&OB) +                      *
-      *                              SRCFILE(&SL/&SF) +                     *
-      *                              SRCMBR(&SM);                           *
+      *                              SRCFILE(&SL/&SF) SRCMBR(&SM);          *
       *     >>COMPILE<<                                                     *
       *       >>PARM<< TRUNCNBR(*NO);                                       *
       *       >>PARM<< DBGVIEW(*LIST);                                      *
       *       >>PARM<< TGTRLS(V6R1M0);                                      *
+      *       >>PARM<< OPTION(*EVENTF);                                     *
       *     >>END-COMPILE<<                                                 *
       *     >>EXECUTE<<                                                     *
       *     >>CMD<<     CRTPGM       PGM(&LI/&OB) +                         *

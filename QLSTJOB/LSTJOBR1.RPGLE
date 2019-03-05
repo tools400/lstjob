@@ -36,14 +36,13 @@
       *=====================================================================*
       *   >>PRE-COMPILER<<                                                  *
       *     >>CRTCMD<<  CRTRPGMOD    MODULE(&LI/&OB) +                      *
-      *                              SRCFILE(&SL/&SF) +                     *
-      *                              SRCMBR(&SM);                           *
-      *     >>COMPILE<<                                                     *
+      *                              SRCFILE(&SL/&SF) SRCMBR(&SM);          *
+      *     >>IMPORTANT<<                                                   *
       *       >>PARM<< TRUNCNBR(*NO);                                       *
       *       >>PARM<< DBGVIEW(*LIST);                                      *
       *       >>PARM<< TGTRLS(V6R1M0);                                      *
       *       >>PARM<< OPTION(*EVENTF);                                     *
-      *     >>END-COMPILE<<                                                 *
+      *     >>END-IMPORTANT<<                                               *
       *     >>EXECUTE<<                                                     *
       *   >>END-PRE-COMPILER<<                                              *
       *=====================================================================*

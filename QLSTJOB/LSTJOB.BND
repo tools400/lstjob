@@ -1,7 +1,7 @@
      /* ====================================================================== */
      /* >>PRE-COMPILER<<                                                       */
      /*   >>CRTCMD<< CRTSRVPGM    SRVPGM(&LI/&OB);                             */
-     /*   >>COMPILE<<                                                          */
+     /*   >>IMPORTANT<<                                                        */
      /*     >>PARM<< MODULE(&LI/LSTJOBR1  +                                    */
      /*                                );                                      */
      /*     >>PARM<< EXPORT(*SRCFILE);                                         */
@@ -14,9 +14,7 @@
      /*     >>PARM<< TEXT('Tools/400: List Jobs');                             */
      /*     >>PARM<< TGTRLS(V6R1M0);                                           */
      /*     >>PARM<< DETAIL(*BASIC);                                           */
-     /*   >>END-COMPILE<<                                                      */
-     /*   >>LINK<<                                                             */
-     /*   >>END-LINK<<                                                         */
+     /*   >>END-IMPORTANT<<                                                    */
      /*   >>EXECUTE<<                                                          */
      /* >>END-PRE-COMPILER<<                                                   */
      /* ====================================================================== */
