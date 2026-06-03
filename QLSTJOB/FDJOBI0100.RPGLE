@@ -5,7 +5,7 @@
 //  QUSRJOBI API - JOBI0100                                      *
 //===============================================================*
 
-dcl-ds jobi0100_t qualified based(pDummy);
+dcl-ds jobi0100_t qualified template;
   bytRet     int(10);
   bytAvl     int(10);
   job        char(10);

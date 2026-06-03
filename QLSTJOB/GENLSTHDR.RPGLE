@@ -5,7 +5,7 @@
 //   Generic List Header for List APIs                           *
 //===============================================================*
 
-dcl-ds genLstHdr_t qualified based(pDummy);
+dcl-ds genLstHdr_t qualified template;
   userArea      char(64);
   size          int(10);
   release       char(4);

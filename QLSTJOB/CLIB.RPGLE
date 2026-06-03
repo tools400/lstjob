@@ -6,15 +6,15 @@
 /if NOT defined(C_DATA_TYPES)
 /define C_DATA_TYPES
 // C Data Types
-dcl-s char_t char(1) based(pDummy);
-dcl-s short_t int(5) based(pDummy);
-dcl-s ushort_t uns(5) based(pDummy);
-dcl-s int_t int(10) based(pDummy);
-dcl-s uint_t uns(10) based(pDummy);
-dcl-s long_t int(10) based(pDummy);
-dcl-s ulong_t uns(10) based(pDummy);
-dcl-s float_t float(4) based(pDummy);
-dcl-s double_t float(8) based(pDummy);
+dcl-s char_t char(1) template;
+dcl-s short_t int(5) template;
+dcl-s ushort_t uns(5) template;
+dcl-s int_t int(10) template;
+dcl-s uint_t uns(10) template;
+dcl-s long_t int(10) template;
+dcl-s ulong_t uns(10) template;
+dcl-s float_t float(4) template;
+dcl-s double_t float(8) template;
 /endif
 
 //  stdin, stdout and stderr
@@ -52,7 +52,7 @@ dcl-pr strftime int(10) extproc('strftime');
   timeptr likeds(tm_t) const;
 end-pr;
 
-dcl-ds tm_t qualified based(pDummy);
+dcl-ds tm_t qualified template;
   tm_sec   int(10);
   tm_min   int(10);
   tm_hour  int(10);
@@ -259,7 +259,7 @@ dcl-c C_CHECK_ALL_AND_ABORT 9999;
 //   pad_bytes          - bytes used to pad allocation length
 //                        to a multiple of 16
 //   overhead_bytes     - bytes used for malloc overhead
-dcl-ds C_mallinfo_t qualified based(pDummy);
+dcl-ds C_mallinfo_t qualified template;
   total_bytes        int(20);
   allocated_bytes    int(20);
   unallocated_bytes  int(20);
@@ -344,12 +344,12 @@ dcl-pr iconv_open extproc('iconv_open') like(iconv_t);
   i_fromCode pointer value;
 end-pr;
 
-dcl-ds iconv_t qualified based(pDummy) align;
+dcl-ds iconv_t qualified template align;
   return_value int(10);
   cd           int(10) dim(12);
 end-ds;
 
-dcl-ds iconv_fromcode_t qualified based(pDummy);
+dcl-ds iconv_fromcode_t qualified template;
   ibmccsid      char(8);
   ccsid         char(5);
   convAlt       char(3);
@@ -360,7 +360,7 @@ dcl-ds iconv_fromcode_t qualified based(pDummy);
   reserved      char(12);
 end-ds;
 
-dcl-ds iconv_tocode_t qualified based(pDummy);
+dcl-ds iconv_tocode_t qualified template;
   ibmccsid char(8);
   ccsid    char(5);
   reserved char(19);
@@ -372,7 +372,7 @@ dcl-pr QtqIconv_open extproc('QtqIconvOpen') likeds(iconv_t);
   i_fromCode likeds(QtqCode_t) const;
 end-pr;
 
-dcl-ds QtqCode_t qualified based(pDummy);
+dcl-ds QtqCode_t qualified template;
   ccsid         int(10);
   conversionA   int(10);
   substitutionA int(10);
@@ -416,7 +416,7 @@ dcl-pr lstat int(10) extproc('lstat'); // = int
   i_pStat pointer value; // = *buf
 end-pr;
 
-dcl-ds st_stat_t qualified based(pDummy) align;
+dcl-ds st_stat_t qualified template align;
   mode       uns(10); // mode_t =uint
   ino        uns(10); // ino_t  =uint
   nlink      uns(5); // nlink_t=ushort
@@ -455,7 +455,7 @@ end-pr;
 
 /if not defined(Qlg_Path_Name)
 /define Qlg_Path_Name
-dcl-ds Qlg_Path_Name_t qualified align based(pDummy);
+dcl-ds Qlg_Path_Name_t qualified align template;
   CCSID               int(10);
   Country_ID          char(2);
   Language_ID         char(3);
@@ -485,12 +485,12 @@ dcl-c QLG_PTR_DOUBLE 3;
 
 /endif
 
-dcl-ds Qlg_attrArray_t qualified based(pDummy);
+dcl-ds Qlg_attrArray_t qualified template;
   numE int(10);
   attr int(10) dim(64);
 end-ds;
 
-dcl-ds Qlg_rtnAttr_t qualified based(pDummy);
+dcl-ds Qlg_rtnAttr_t qualified template;
   ofsNextAttr int(10);
   ID          int(10);
   size        int(10);
@@ -543,10 +543,10 @@ dcl-pr chdir int(10) extproc('chdir');
 end-pr;
 
 //  QSYSINC/SYS.TYPES
-dcl-s off_t int(10) based(pDummy);
-dcl-s size_t uns(10) based(pDummy);
-dcl-s ssize_t int(10) based(pDummy);
-dcl-s time_t int(10) based(pDummy);
+dcl-s off_t int(10) template;
+dcl-s size_t uns(10) template;
+dcl-s ssize_t int(10) template;
+dcl-s time_t int(10) template;
 
 //  0/-1 = chmod()--Change File Authorizations         include <sys/stat.h>
 dcl-pr chmod int(10) extproc('chmod'); // = int
@@ -575,7 +575,7 @@ dcl-pr readdir pointer extproc('readdir'); // = *dirent
   i_dirp pointer value; // = *DIR
 end-pr;
 
-dcl-ds dirent_t qualified based(pDummy);
+dcl-ds dirent_t qualified template;
   d_reserv1       char(16);
   d_fileno_gen_id uns(10);
   d_fileno        uns(10);
@@ -591,7 +591,7 @@ dcl-ds dirent_t qualified based(pDummy);
   d_name          char(640);
 end-ds;
 
-dcl-ds qlg_nls_t qualified based(pDummy) align;
+dcl-ds qlg_nls_t qualified template align;
   ccsid        int(10);
   country_id   char(2);
   language_id  char(3);
@@ -911,7 +911,7 @@ dcl-pr genUUID extproc('_GENUUID');
   uuid_template pointer value;
 end-pr;
 
-dcl-ds uuid_template_t qualified based(pDummy);
+dcl-ds uuid_template_t qualified template;
   bytPrv   uns(10);
   bytAvl   uns(10);
   reserved char(8);
@@ -939,7 +939,7 @@ dcl-pr cipher extproc('_CIPHER');
   *n pointer const;
 end-pr;
 
-dcl-ds cipherCtrls_t qualified based(pDummy) align;
+dcl-ds cipherCtrls_t qualified template align;
   function      char(2) pos(1);
   hashAlg       char(1) pos(3);
   sequence      char(1) pos(4);

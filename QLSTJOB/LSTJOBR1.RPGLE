@@ -66,7 +66,7 @@ ctl-opt datfmt(*iso) timfmt(*iso) debug(*yes);
 /copy QBASICS1,PBASICS1 ?Tools/400 Runtime Library
 
 //  Type definitions
-dcl-ds handle_t qualified based(pDummy);
+dcl-ds handle_t qualified template;
   pUsrSpc  pointer;
   numE     int(10);
   reserved char(36);

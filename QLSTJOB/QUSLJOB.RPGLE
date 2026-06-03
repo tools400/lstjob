@@ -17,7 +17,7 @@ dcl-pr QUSLJOB extpgm('QUSLJOB');
 end-pr;
 
 //  Input Parameter Section
-dcl-ds QUSLJOB_inpParm_t qualified based(pDummy);
+dcl-ds QUSLJOB_inpParm_t qualified template;
   qJobSpc    likeds(qJob_t);
   status     char(10);
   qUsrSpc    likeds(qObj_t);
@@ -30,13 +30,13 @@ dcl-ds QUSLJOB_inpParm_t qualified based(pDummy);
 end-ds;
 
 //  Header Section
-dcl-ds QUSLJOB_header_t qualified based(pDummy);
+dcl-ds QUSLJOB_header_t qualified template;
   qJobUsed  likeds(qJob_t);
   hContinue char(48);
 end-ds;
 
 //  JOBL0100 Format
-dcl-ds jobl0100_t qualified based(pDummy);
+dcl-ds jobl0100_t qualified template;
   job         char(10);
   user        char(10);
   nbr         char(6);
@@ -48,7 +48,7 @@ dcl-ds jobl0100_t qualified based(pDummy);
 end-ds;
 
 //  JOBL0200 Format
-dcl-ds jobl0200_t qualified based(pDummy);
+dcl-ds jobl0200_t qualified template;
   job         char(10);
   user        char(10);
   nbr         char(6);
@@ -64,7 +64,7 @@ end-ds;
 // field information                  likeds(jobl0201_t)
 
 //  Field Information of Format JOBL0200
-dcl-ds jobl0201_t qualified based(pDummy);
+dcl-ds jobl0201_t qualified template;
   length     int(10);
   key        int(10);
   dataType   char(1);

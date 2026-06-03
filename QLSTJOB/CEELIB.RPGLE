@@ -7,7 +7,7 @@
 // ---------------------------------------------------------------
 
 //  Condition token, used as feedback code
-dcl-ds cee_fc_t qualified based(pDummy);
+dcl-ds cee_fc_t qualified template;
   Condition_ID char(4) pos(1);
   MsgSev       int(5) pos(1);
   Msg_No       uns(5) pos(3);
@@ -28,7 +28,7 @@ dcl-pr CEEDOD extproc('CEEDOD');
 end-pr;
 
 //  Reference fields for CEEDOD API
-dcl-ds descInf_t based(pDummy) qualified;
+dcl-ds descInf_t template qualified;
   desctype int(10);
   datatype int(10);
   descinf1 int(10);
@@ -53,7 +53,7 @@ dcl-pr CEEGSI extproc('CEEGSI');
 end-pr;
 
 //  Reference fields for CEEGSI API
-dcl-ds strInf_t based(pDummy) qualified;
+dcl-ds strInf_t template qualified;
   datatype int(10);
   curlen   int(10);
   maxlen   int(10);
@@ -112,7 +112,7 @@ dcl-pr CEEUTCO extproc('CEEUTCO');
   feedback      char(12) options(*nopass);
 end-pr;
 
-dcl-ds cee_utco_t qualified based(pDummy);
+dcl-ds cee_utco_t qualified template;
   offhours int(10);
   offmins  int(10);
   offsecs  float(8);

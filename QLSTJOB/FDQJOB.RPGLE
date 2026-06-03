@@ -5,7 +5,7 @@
 //   Qualified job name                                          *
 //===============================================================*
 
-dcl-ds qJob_t qualified based(pDummy);
+dcl-ds qJob_t qualified template;
   name char(10);
   user char(10);
   nbr  char(6);

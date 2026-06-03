@@ -5,7 +5,7 @@
 //  QUSLJOB  API - JOBL0100                                      *
 //===============================================================*
 
-dcl-ds jobl0100_t qualified based(pDummy);
+dcl-ds jobl0100_t qualified template;
   job         char(10);
   user        char(10);
   nbr         char(6);

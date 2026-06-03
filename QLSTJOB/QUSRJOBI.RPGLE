@@ -14,7 +14,7 @@ dcl-pr QUSRJOBI extpgm('QUSRJOBI');
 end-pr;
 
 //  This format returns basic performance information about a job.
-dcl-ds jobi0100_t qualified based(pDummy);
+dcl-ds jobi0100_t qualified template;
   bytRet     int(10);
   bytAvl     int(10);
   job        char(10);
@@ -33,7 +33,7 @@ end-ds;
 
 //  This format returns information equivalent to that found on the
 //  Work with Active Jobs (WRKACTJOB) command.
-dcl-ds jobi0200_t qualified based(pDummy);
+dcl-ds jobi0200_t qualified template;
   bytRet          int(10);
   bytAvl          int(10);
   job             char(10);
@@ -73,7 +73,7 @@ end-ds;
 
 //  This format returns job queue and output queue information for a job, as
 //  well as information about the submitter's job if the job is a submitted batch job.
-dcl-ds jobi0300_t qualified based(pDummy);
+dcl-ds jobi0300_t qualified template;
   bytRet     int(10);
   bytAvl     int(10);
   job        char(10);
@@ -101,7 +101,7 @@ dcl-ds jobi0300_t qualified based(pDummy);
 end-ds;
 
 //  This format primarily returns job attribute types of information.
-dcl-ds jobi0400_t qualified based(pDummy);
+dcl-ds jobi0400_t qualified template;
   bytRet        int(10);
   bytAvl        int(10);
   job           char(10);
@@ -168,7 +168,7 @@ end-ds;
 
 //  This format returns information about active jobs only.
 //  It is intended to supplement the JOBI0400 format.
-dcl-ds jobi0600_t qualified based(pDummy);
+dcl-ds jobi0600_t qualified template;
   bytRet      int(10);
   bytAvl      int(10);
   job         char(10);
@@ -198,7 +198,7 @@ dcl-ds jobi0600_t qualified based(pDummy);
 end-ds;
 
 //  This format returns library list information for an active job.
-dcl-ds jobi0700_t qualified based(pDummy);
+dcl-ds jobi0700_t qualified template;
   bytRet     int(10);
   bytAvl     int(10);
   job        char(10);

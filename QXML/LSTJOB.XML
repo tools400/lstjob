@@ -1496,7 +1496,7 @@ srccssid=  "01141">
 // ---------------------------------------------------------------
 
 //  Condition token, used as feedback code
-dcl-ds cee_fc_t qualified based(pDummy);
+dcl-ds cee_fc_t qualified template;
   Condition_ID char(4) pos(1);
   MsgSev       int(5) pos(1);
   Msg_No       uns(5) pos(3);
@@ -1517,7 +1517,7 @@ dcl-pr CEEDOD extproc('CEEDOD');
 end-pr;
 
 //  Reference fields for CEEDOD API
-dcl-ds descInf_t based(pDummy) qualified;
+dcl-ds descInf_t template qualified;
   desctype int(10);
   datatype int(10);
   descinf1 int(10);
@@ -1542,7 +1542,7 @@ dcl-pr CEEGSI extproc('CEEGSI');
 end-pr;
 
 //  Reference fields for CEEGSI API
-dcl-ds strInf_t based(pDummy) qualified;
+dcl-ds strInf_t template qualified;
   datatype int(10);
   curlen   int(10);
   maxlen   int(10);
@@ -1601,7 +1601,7 @@ dcl-pr CEEUTCO extproc('CEEUTCO');
   feedback      char(12) options(*nopass);
 end-pr;
 
-dcl-ds cee_utco_t qualified based(pDummy);
+dcl-ds cee_utco_t qualified template;
   offhours int(10);
   offmins  int(10);
   offsecs  float(8);
@@ -1682,15 +1682,15 @@ srccssid=  "01141">
 /if NOT defined(C_DATA_TYPES)
 /define C_DATA_TYPES
 // C Data Types
-dcl-s char_t char(1) based(pDummy);
-dcl-s short_t int(5) based(pDummy);
-dcl-s ushort_t uns(5) based(pDummy);
-dcl-s int_t int(10) based(pDummy);
-dcl-s uint_t uns(10) based(pDummy);
-dcl-s long_t int(10) based(pDummy);
-dcl-s ulong_t uns(10) based(pDummy);
-dcl-s float_t float(4) based(pDummy);
-dcl-s double_t float(8) based(pDummy);
+dcl-s char_t char(1) template;
+dcl-s short_t int(5) template;
+dcl-s ushort_t uns(5) template;
+dcl-s int_t int(10) template;
+dcl-s uint_t uns(10) template;
+dcl-s long_t int(10) template;
+dcl-s ulong_t uns(10) template;
+dcl-s float_t float(4) template;
+dcl-s double_t float(8) template;
 /endif
 
 //  stdin, stdout and stderr
@@ -1728,7 +1728,7 @@ dcl-pr strftime int(10) extproc('strftime');
   timeptr likeds(tm_t) const;
 end-pr;
 
-dcl-ds tm_t qualified based(pDummy);
+dcl-ds tm_t qualified template;
   tm_sec   int(10);
   tm_min   int(10);
   tm_hour  int(10);
@@ -1935,7 +1935,7 @@ dcl-c C_CHECK_ALL_AND_ABORT 9999;
 //   pad_bytes          - bytes used to pad allocation length
 //                        to a multiple of 16
 //   overhead_bytes     - bytes used for malloc overhead
-dcl-ds C_mallinfo_t qualified based(pDummy);
+dcl-ds C_mallinfo_t qualified template;
   total_bytes        int(20);
   allocated_bytes    int(20);
   unallocated_bytes  int(20);
@@ -2020,12 +2020,12 @@ dcl-pr iconv_open extproc('iconv_open') like(iconv_t);
   i_fromCode pointer value;
 end-pr;
 
-dcl-ds iconv_t qualified based(pDummy) align;
+dcl-ds iconv_t qualified template align;
   return_value int(10);
   cd           int(10) dim(12);
 end-ds;
 
-dcl-ds iconv_fromcode_t qualified based(pDummy);
+dcl-ds iconv_fromcode_t qualified template;
   ibmccsid      char(8);
   ccsid         char(5);
   convAlt       char(3);
@@ -2036,7 +2036,7 @@ dcl-ds iconv_fromcode_t qualified based(pDummy);
   reserved      char(12);
 end-ds;
 
-dcl-ds iconv_tocode_t qualified based(pDummy);
+dcl-ds iconv_tocode_t qualified template;
   ibmccsid char(8);
   ccsid    char(5);
   reserved char(19);
@@ -2048,7 +2048,7 @@ dcl-pr QtqIconv_open extproc('QtqIconvOpen') likeds(iconv_t);
   i_fromCode likeds(QtqCode_t) const;
 end-pr;
 
-dcl-ds QtqCode_t qualified based(pDummy);
+dcl-ds QtqCode_t qualified template;
   ccsid         int(10);
   conversionA   int(10);
   substitutionA int(10);
@@ -2092,7 +2092,7 @@ dcl-pr lstat int(10) extproc('lstat'); // = int
   i_pStat pointer value; // = *buf
 end-pr;
 
-dcl-ds st_stat_t qualified based(pDummy) align;
+dcl-ds st_stat_t qualified template align;
   mode       uns(10); // mode_t =uint
   ino        uns(10); // ino_t  =uint
   nlink      uns(5); // nlink_t=ushort
@@ -2131,7 +2131,7 @@ end-pr;
 
 /if not defined(Qlg_Path_Name)
 /define Qlg_Path_Name
-dcl-ds Qlg_Path_Name_t qualified align based(pDummy);
+dcl-ds Qlg_Path_Name_t qualified align template;
   CCSID               int(10);
   Country_ID          char(2);
   Language_ID         char(3);
@@ -2161,12 +2161,12 @@ dcl-c QLG_PTR_DOUBLE 3;
 
 /endif
 
-dcl-ds Qlg_attrArray_t qualified based(pDummy);
+dcl-ds Qlg_attrArray_t qualified template;
   numE int(10);
   attr int(10) dim(64);
 end-ds;
 
-dcl-ds Qlg_rtnAttr_t qualified based(pDummy);
+dcl-ds Qlg_rtnAttr_t qualified template;
   ofsNextAttr int(10);
   ID          int(10);
   size        int(10);
@@ -2219,10 +2219,10 @@ dcl-pr chdir int(10) extproc('chdir');
 end-pr;
 
 //  QSYSINC/SYS.TYPES
-dcl-s off_t int(10) based(pDummy);
-dcl-s size_t uns(10) based(pDummy);
-dcl-s ssize_t int(10) based(pDummy);
-dcl-s time_t int(10) based(pDummy);
+dcl-s off_t int(10) template;
+dcl-s size_t uns(10) template;
+dcl-s ssize_t int(10) template;
+dcl-s time_t int(10) template;
 
 //  0/-1 = chmod()--Change File Authorizations         include <sys/stat.h>
 dcl-pr chmod int(10) extproc('chmod'); // = int
@@ -2251,7 +2251,7 @@ dcl-pr readdir pointer extproc('readdir'); // = *dirent
   i_dirp pointer value; // = *DIR
 end-pr;
 
-dcl-ds dirent_t qualified based(pDummy);
+dcl-ds dirent_t qualified template;
   d_reserv1       char(16);
   d_fileno_gen_id uns(10);
   d_fileno        uns(10);
@@ -2267,7 +2267,7 @@ dcl-ds dirent_t qualified based(pDummy);
   d_name          char(640);
 end-ds;
 
-dcl-ds qlg_nls_t qualified based(pDummy) align;
+dcl-ds qlg_nls_t qualified template align;
   ccsid        int(10);
   country_id   char(2);
   language_id  char(3);
@@ -2587,7 +2587,7 @@ dcl-pr genUUID extproc('_GENUUID');
   uuid_template pointer value;
 end-pr;
 
-dcl-ds uuid_template_t qualified based(pDummy);
+dcl-ds uuid_template_t qualified template;
   bytPrv   uns(10);
   bytAvl   uns(10);
   reserved char(8);
@@ -2615,7 +2615,7 @@ dcl-pr cipher extproc('_CIPHER');
   *n pointer const;
 end-pr;
 
-dcl-ds cipherCtrls_t qualified based(pDummy) align;
+dcl-ds cipherCtrls_t qualified template align;
   function      char(2) pos(1);
   hashAlg       char(1) pos(3);
   sequence      char(1) pos(4);
@@ -2684,7 +2684,7 @@ srccssid=  "01141">
 //  QUSRJOBI API - JOBI0100                                      *
 //===============================================================*
 
-dcl-ds jobi0100_t qualified based(pDummy);
+dcl-ds jobi0100_t qualified template;
   bytRet     int(10);
   bytAvl     int(10);
   job        char(10);
@@ -2724,7 +2724,7 @@ srccssid=  "01141">
 //  QUSRJOBI API - JOBI0200                                      *
 //===============================================================*
 
-dcl-ds jobi0200_t qualified based(pDummy);
+dcl-ds jobi0200_t qualified template;
   bytRet          int(10);
   bytAvl          int(10);
   job             char(10);
@@ -2785,7 +2785,7 @@ srccssid=  "01141">
 //  QUSRJOBI API - JOBI0400                                      *
 //===============================================================*
 
-dcl-ds jobi0400_t qualified based(pDummy);
+dcl-ds jobi0400_t qualified template;
   bytRet        int(10);
   bytAvl        int(10);
   job           char(10);
@@ -2873,7 +2873,7 @@ srccssid=  "01141">
 //  QUSRJOBI API - JOBI0600                                      *
 //===============================================================*
 
-dcl-ds jobi0600_t qualified based(pDummy);
+dcl-ds jobi0600_t qualified template;
   bytRet      int(10);
   bytAvl      int(10);
   job         char(10);
@@ -2925,7 +2925,7 @@ srccssid=  "01141">
 //  QUSRJOBI API - JOBI0700                                      *
 //===============================================================*
 
-dcl-ds jobi0700_t qualified based(pDummy);
+dcl-ds jobi0700_t qualified template;
   bytRet     int(10);
   bytAvl     int(10);
   job        char(10);
@@ -2965,7 +2965,7 @@ srccssid=  "01141">
 //  QUSLJOB  API - JOBL0100                                      *
 //===============================================================*
 
-dcl-ds jobl0100_t qualified based(pDummy);
+dcl-ds jobl0100_t qualified template;
   job         char(10);
   user        char(10);
   nbr         char(6);
@@ -2999,7 +2999,7 @@ srccssid=  "01141">
 //   Qualified job name                                          *
 //===============================================================*
 
-dcl-ds qJob_t qualified based(pDummy);
+dcl-ds qJob_t qualified template;
   name char(10);
   user char(10);
   nbr  char(6);
@@ -3028,7 +3028,7 @@ srccssid=  "01141">
 //   Generic List Header for List APIs                           *
 //===============================================================*
 
-dcl-ds genLstHdr_t qualified based(pDummy);
+dcl-ds genLstHdr_t qualified template;
   userArea      char(64);
   size          int(10);
   release       char(4);
@@ -3573,7 +3573,7 @@ ctl-opt datfmt(*iso) timfmt(*iso) debug(*yes);
 /copy QBASICS1,PBASICS1 ?Tools/400 Runtime Library
 
 //  Type definitions
-dcl-ds handle_t qualified based(pDummy);
+dcl-ds handle_t qualified template;
   pUsrSpc  pointer;
   numE     int(10);
   reserved char(36);
@@ -4340,7 +4340,7 @@ srccssid=  "01141">
 //===============================================================*
 //  Reference fields
 //===============================================================*
-dcl-s lstJob_handle_t based(pDummy) like(HANDLE_handle_t);
+dcl-s lstJob_handle_t template like(HANDLE_handle_t);
 
 dcl-c cLSTJOB_ORDERBY_NONE '*NONE';
 dcl-c cLSTJOB_ORDERBY_NAME '*NAME';
@@ -4429,7 +4429,7 @@ dcl-pr QUSLJOB extpgm('QUSLJOB');
 end-pr;
 
 //  Input Parameter Section
-dcl-ds QUSLJOB_inpParm_t qualified based(pDummy);
+dcl-ds QUSLJOB_inpParm_t qualified template;
   qJobSpc    likeds(qJob_t);
   status     char(10);
   qUsrSpc    likeds(qObj_t);
@@ -4442,13 +4442,13 @@ dcl-ds QUSLJOB_inpParm_t qualified based(pDummy);
 end-ds;
 
 //  Header Section
-dcl-ds QUSLJOB_header_t qualified based(pDummy);
+dcl-ds QUSLJOB_header_t qualified template;
   qJobUsed  likeds(qJob_t);
   hContinue char(48);
 end-ds;
 
 //  JOBL0100 Format
-dcl-ds jobl0100_t qualified based(pDummy);
+dcl-ds jobl0100_t qualified template;
   job         char(10);
   user        char(10);
   nbr         char(6);
@@ -4460,7 +4460,7 @@ dcl-ds jobl0100_t qualified based(pDummy);
 end-ds;
 
 //  JOBL0200 Format
-dcl-ds jobl0200_t qualified based(pDummy);
+dcl-ds jobl0200_t qualified template;
   job         char(10);
   user        char(10);
   nbr         char(6);
@@ -4476,7 +4476,7 @@ end-ds;
 // field information                  likeds(jobl0201_t)
 
 //  Field Information of Format JOBL0200
-dcl-ds jobl0201_t qualified based(pDummy);
+dcl-ds jobl0201_t qualified template;
   length     int(10);
   key        int(10);
   dataType   char(1);
@@ -4632,7 +4632,7 @@ dcl-pr QUSRJOBI extpgm('QUSRJOBI');
 end-pr;
 
 //  This format returns basic performance information about a job.
-dcl-ds jobi0100_t qualified based(pDummy);
+dcl-ds jobi0100_t qualified template;
   bytRet     int(10);
   bytAvl     int(10);
   job        char(10);
@@ -4651,7 +4651,7 @@ end-ds;
 
 //  This format returns information equivalent to that found on the
 //  Work with Active Jobs (WRKACTJOB) command.
-dcl-ds jobi0200_t qualified based(pDummy);
+dcl-ds jobi0200_t qualified template;
   bytRet          int(10);
   bytAvl          int(10);
   job             char(10);
@@ -4691,7 +4691,7 @@ end-ds;
 
 //  This format returns job queue and output queue information for a job, as
 //  well as information about the submitter's job if the job is a submitted batch job.
-dcl-ds jobi0300_t qualified based(pDummy);
+dcl-ds jobi0300_t qualified template;
   bytRet     int(10);
   bytAvl     int(10);
   job        char(10);
@@ -4719,7 +4719,7 @@ dcl-ds jobi0300_t qualified based(pDummy);
 end-ds;
 
 //  This format primarily returns job attribute types of information.
-dcl-ds jobi0400_t qualified based(pDummy);
+dcl-ds jobi0400_t qualified template;
   bytRet        int(10);
   bytAvl        int(10);
   job           char(10);
@@ -4786,7 +4786,7 @@ end-ds;
 
 //  This format returns information about active jobs only.
 //  It is intended to supplement the JOBI0400 format.
-dcl-ds jobi0600_t qualified based(pDummy);
+dcl-ds jobi0600_t qualified template;
   bytRet      int(10);
   bytAvl      int(10);
   job         char(10);
@@ -4816,7 +4816,7 @@ dcl-ds jobi0600_t qualified based(pDummy);
 end-ds;
 
 //  This format returns library list information for an active job.
-dcl-ds jobi0700_t qualified based(pDummy);
+dcl-ds jobi0700_t qualified template;
   bytRet     int(10);
   bytAvl     int(10);
   job        char(10);

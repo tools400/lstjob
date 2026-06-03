@@ -27,7 +27,7 @@
 //===============================================================*
 //  Reference fields
 //===============================================================*
-dcl-s lstJob_handle_t based(pDummy) like(HANDLE_handle_t);
+dcl-s lstJob_handle_t template like(HANDLE_handle_t);
 
 dcl-c cLSTJOB_ORDERBY_NONE '*NONE';
 dcl-c cLSTJOB_ORDERBY_NAME '*NAME';
