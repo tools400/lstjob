@@ -8,12 +8,11 @@ dcl-pr QUSLJOB extpgm('QUSLJOB');
   i_format    char(8) const;
   i_qJob      char(26) const;
   i_status    char(10) const;
-  io_errCode  char(65535) options(*nopass: *varsize); // | optGrp 1
-  i_jobType   char(1) options(*nopass) const; // | optGrp 2
-  i_numFldRtn int(10) options(*nopass) const; // |
-  i_keyFldRtn int(10) options(*nopass: *varsize) const
-    // | dim(256);                                                         // |
-  i_hContinue char(48) options(*nopass) const; // | optGrp 3
+  io_errCode  char(65535) options(*nopass: *varsize); // optGrp 1
+  i_jobType   char(1) options(*nopass) const; // optGrp 2
+  i_numFldRtn int(10) options(*nopass) const; //
+  i_keyFldRtn int(10) options(*nopass: *varsize) dim(256) const;
+  i_hContinue char(48) options(*nopass) const; // optGrp 3
 end-pr;
 
 //  Input Parameter Section
