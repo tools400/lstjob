@@ -1,9 +1,14 @@
-LSTJOB - A Tools/400 Service Program
-------------------------------------
+# LSTJOB - A Tools/400 Service Program
 
 LSTJOB is service program that for retrieving a list of jobs.
 
-Dependencies: BASICS1
+## Dependencies
+
+Dependencies:
+
+- [BASICS1](https://github.com/tools400/basics1)
+
+## Installation
 
 Compile members with the following PDM option:
 
@@ -13,5 +18,9 @@ Compile members with the following PDM option:
 
 Members of type MAKPGM or BND are used for linking programs (MAKPGM)
 and service programs (BND).
+
+The [STRPREPRC](https://github.com/tools400/strpreprc) utility is used for compiling the members. The utility retrieves object creation parameters from the source member that is compiled and building and executing the final object creation command.
+
+---
 
 2018, Thomas Raddatz

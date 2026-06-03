@@ -1,12 +1,14 @@
-      /IF NOT DEFINED(qJob_t    )
-      /DEFINE qJob_t
-      * ============================================================= *
-      *   Qualified job name                                          *
-      *===============================================================*
-      *
-     D qJob_t          DS                  qualified           based(pDummy)
-     D  name                         10A
-     D  user                         10A
-     D  nbr                           6A
-      *
-      /ENDIF
+**free
+/if NOT defined(qJob_t)
+/define qJob_t
+// ============================================================= *
+//   Qualified job name                                          *
+//===============================================================*
+
+dcl-ds qJob_t qualified based(pDummy);
+  name char(10);
+  user char(10);
+  nbr  char(6);
+end-ds;
+
+/endif

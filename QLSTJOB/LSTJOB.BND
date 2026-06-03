@@ -12,7 +12,7 @@
      /*     >>PARM<< ALWUPD(*YES);                                             */
      /*     >>PARM<< ALWLIBUPD(*YES);                                          */
      /*     >>PARM<< TEXT('Tools/400: List Jobs');                             */
-     /*     >>PARM<< TGTRLS(V6R1M0);                                           */
+     /*     >>PARM<< TGTRLS(V7R3M0);                                           */
      /*     >>PARM<< DETAIL(*BASIC);                                           */
      /*   >>END-IMPORTANT<<                                                    */
      /*   >>EXECUTE<<                                                          */

@@ -22,7 +22,7 @@
      /* =================================================================== */
      /*  History:                                                           */
      /*                                                                     */
-     /*  Datum       Name          Änderung                                 */
+     /*  Datum       Name          nderung                                 */
      /*  ----------  ------------  ---------------------------------------  */
      /*                                                                     */
      /* =================================================================== */
@@ -90,7 +90,7 @@
                           SRCMBR(LSTJOB) +
                           ACTGRP(*CALLER) +
                           DETAIL(*BASIC) +
-                          BNDSRVPGM(&TOLIB/BASICS1) +
+                          BNDSRVPGM(*LIBL/BASICS1) +
                           TEXT('List Jobs API') +
                           TGTRLS(&TGTRLS)
              DLTSPLF    FILE(LSTJOB) JOB(*) SPLNBR(*LAST)

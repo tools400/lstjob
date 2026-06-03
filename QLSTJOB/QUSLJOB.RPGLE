@@ -1,303 +1,191 @@
-      /IF NOT DEFINED(QUSLJOB)
-      /DEFINE QUSLJOB
-      *
-      *  List Job (QUSLJOB) API
-     D QUSLJOB...
-     D                 PR                         extpgm('QUSLJOB')
-     D  i_qUsrSpc                    20A   const
-     D  i_format                      8A   const
-     D  i_qJob                       26A   const
-     D  i_status                     10A   const
-     D  io_errCode                65535A          options(*nopass: *varsize)    | optGrp 1
-     D  i_jobType                     1A   const  options(*nopass)              | optGrp 2
-     D  i_numFldRtn                  10I 0 const  options(*nopass)              |
-     D  i_keyFldRtn                  10I 0 const  options(*nopass: *varsize)    |
-     D                                            dim(256)                      |
-     D  i_hContinue                  48A   const  options(*nopass)              | optGrp 3
-      *
-      *  Input Parameter Section
-     D QUSLJOB_inpParm_t...
-     D                 DS                  qualified               based(pDummy)
-     D  qJobSpc                            likeds(qJob_t )
-     D  status                       10A
-     D  qUsrSpc                            likeds(qObj_t )
-     D  format                        8A
-     D  jobType                       1A
-     D  reserved_1                    3A
-     D  numFldRtn                    10I 0
-     D  keyFldRtn                    10I 0 dim(256)
-     D  hContinue                    48A
-      *
-      *  Header Section
-     D QUSLJOB_header_t...
-     D                 DS                  qualified               based(pDummy)
-     D  qJobUsed                           likeds(qJob_t )
-     D  hContinue                    48A
-      *
-      *  JOBL0100 Format
-     D jobl0100_t...
-     D                 DS                  qualified               based(pDummy)
-     D  job                          10A
-     D  user                         10A
-     D  nbr                           6A
-     D  intJobID                     16A
-     D  status                       10A
-     D  type                          1A
-     D  subType                       1A
-     D  reserved_01                   2A
-      *
-      *  JOBL0200 Format
-     D jobl0200_t...
-     D                 DS                  qualified               based(pDummy)
-     D  job                          10A
-     D  user                         10A
-     D  nbr                           6A
-     D  intJobID                     16A
-     D  status                       10A
-     D  type                          1A
-     D  subType                       1A
-     D  reserved_01                   2A
-     D  jobInfSts                     1A
-     D  reserved_2                    3A
-     D  numFldRtn                    10I 0
-      * field information                  likeds(jobl0201_t)
-      *
-      *  Field Information of Format JOBL0200
-     D jobl0201_t...
-     D                 DS                  qualified               based(pDummy)
-     D  length                       10I 0
-     D  key                          10I 0
-     D  dataType                      1A
-     D  reserved_1                    3A
-     D  dataLength                   10I 0
-     D  data                        256A
-      *
-      *  Valid Keys                                                             Data type
-     D cJOBL_ACTIVE_JOB_STATUS...
-     D                 C                   0101                                 CHAR(4)
-     D cJOBL_ALLOW_MULTIPLE_THREADS...
-     D                 C                   0102                                 CHAR(1)
-     D cJOBL_ACTIVE_JOB_STATUS_FOR_JOBS_ENDING...
-     D                 C                   0103                                 CHAR(4)
-     D cJOBL_BREAK_MESSAGE_HANDLING...
-     D                 C                   0201                                 CHAR(10)
-     D cJOBL_CANCEL_KEY...
-     D                 C                   0301                                 CHAR(1)
-     D cJOBL_CCSID...
-     D                 C                   0302                                 BINARY(4)
-     D cJOBL_COUNTRY_OR_REGION_ID...
-     D                 C                   0303                                 CHAR(2)
-     D cJOBL_PROCESSING_UNIT_TIME...
-     D                 C                   0304                                 BINARY(4)
-     D cJOBL_CURRENT_USER_PROFILE...
-     D                 C                   0305                                 CHAR(10)
-     D cJOBL_COMPLETION_STATUS...
-     D                 C                   0306                                 CHAR(1)
-     D cJOBL_CURRENT_SYSTEM_POOL_IDENTIFIER...
-     D                 C                   0307                                 BINARY(4)
-     D cJOBL_CHARACTER_IDENTIFIER_CONTROL...
-     D                 C                   0311                                 CHAR(10)
-     D cJOBL_PROCESSING_UNIT_TIME_USED_TOTAL_JOB...
-     D                 C                   0312                                 BINARY(8), UIN
-     D cJOBL_PROCESSING_UNIT_TIME_USED_TOTAL_DB...
-     D                 C                   0313                                 BINARY(8), UIN
-     D cJOBL_DATE_TIME_JOB_BECAME_ACTIVE...
-     D                 C                   0401                                 CHAR(13)
-     D cJOBL_DATE_TIME_JOB_ENTERED_SYSTEM...
-     D                 C                   0402                                 CHAR(13)
-     D cJOBL_DATE_TIME_JOB_IS_SCHEDULED_TO_RUN...
-     D                 C                   0403                                 CHAR(8)
-     D cJOBL_DATE_TIME_JOB_WAS_PUT_ON_THIS_JOB_QUEUE...
-     D                 C                   0404                                 CHAR(8)
-     D cJOBL_DATE_FORMAT...
-     D                 C                   0405                                 CHAR(4)
-     D cJOBL_DATE_SEPARATOR...
-     D                 C                   0406                                 CHAR(1)
-     D cJOBL_DBCS_CAPABLE...
-     D                 C                   0407                                 CHAR(1)
-     D cJOBL_DDM_CONVERSATION_HANDLING...
-     D                 C                   0408                                 CHAR(10)
-     D cJOBL_DEFAULT_WAIT...
-     D                 C                   0409                                 BINARY(4)
-     D cJOBL_DEVICE_RECOVERY_ACTION...
-     D                 C                   0410                                 CHAR(13)
-     D cJOBL_DEVICE_NAME...
-     D                 C                   0411                                 CHAR(10)
-     D cJOBL_DEFAULT_CCSID...
-     D                 C                   0412                                 BINARY(4)
-     D cJOBL_DECIMAL_FORMAT...
-     D                 C                   0413                                 CHAR(1)
-     D cJOBL_DATE_TIME_JOB_ENDED...
-     D                 C                   0418                                 CHAR(13)
-     D cJOBL_END_SEVERITY...
-     D                 C                   0501                                 BINARY(4)
-     D cJOBL_END_STATUS...
-     D                 C                   0502                                 CHAR(1)
-     D cJOBL_EXIT_KEY...
-     D                 C                   0503                                 CHAR(1)
-     D cJOBL_FUNCTION_NAME...
-     D                 C                   0601                                 CHAR(10)
-     D cJOBL_FUNCTION_TYPE...
-     D                 C                   0602                                 CHAR(1)
-     D cJOBL_SIGNED_ON_JOB...
-     D                 C                   0701                                 CHAR(1)
-     D cJOBL_GROUP_PROFILE_NAME...
-     D                 C                   0702                                 CHAR(10)
-     D cJOBL_GROUP_PROFILE_NAME_SUPPLEMENTAL...
-     D                 C                   0703                                 CHAR(150)
-     D cJOBL_INQUIRY_MESSAGE_REPLY...
-     D                 C                   0901                                 CHAR(10)
-     D cJOBL_JOB_ACCOUNTING_CODE...
-     D                 C                   1001                                 CHAR(15)
-     D cJOBL_JOB_DATE...
-     D                 C                   1002                                 CHAR(7)
-     D cJOBL_JOB_DESCRIPTION_NAME...
-     D                 C                   1003                                 CHAR(20)
-     D cJOBL_JOB_QUEUE_NAME...
-     D                 C                   1004                                 CHAR(20)
-     D cJOBL_JOB_QUEUE_PRIORITY...
-     D                 C                   1005                                 CHAR(2)
-     D cJOBL_JOB_SWITCHES...
-     D                 C                   1006                                 CHAR(8)
-     D cJOBL_JOB_MESSAGE_QUEUE_FULL_ACTION...
-     D                 C                   1007                                 CHAR(10)
-     D cJOBL_JOB_MESSAGE_QUEUE_MAXIMUM_SIZE...
-     D                 C                   1008                                 BINARY(4)
-     D cJOBL_JOB_USER_IDENTITY...
-     D                 C                   1012                                 CHAR(10)
-     D cJOBL_JOB_USER_IDENTITY_SETTING...
-     D                 C                   1013                                 CHAR(1)
-     D cJOBL_JOB_END_REASON...
-     D                 C                   1014                                 BINARY(4)
-     D cJOBL_JOB_LOG_PENDING...
-     D                 C                   1015                                 CHAR(1)
-     D cJOBL_JOB_TYPE_ENHANCED...
-     D                 C                   1016                                 BINARY(4)
-     D cJOBL_JOB_LOCAL_TIME...
-     D                 C                   1017                                 CHAR(8)
-     D cJOBL_JOB_LOG_OUTPUT...
-     D                 C                   1018                                 CHAR(10)
-     D cJOBL_LANGUAGE_ID...
-     D                 C                   1201                                 CHAR(3)
-     D cJOBL_LOGGING_LEVEL...
-     D                 C                   1202                                 CHAR(1)
-     D cJOBL_LOGGING_OF_CL_PROGRAMS...
-     D                 C                   1203                                 CHAR(10)
-     D cJOBL_LOGGING_SEVERITY...
-     D                 C                   1204                                 BINARY(4)
-     D cJOBL_LOGGING_TEXT...
-     D                 C                   1205                                 CHAR(10)
-     D cJOBL_MODE_NAME...
-     D                 C                   1301                                 CHAR(8)
-     D cJOBL_MAXIMUM_PROCESSING_UNIT_TIME...
-     D                 C                   1302                                 BINARY(4)
-     D cJOBL_MAXIMUM_TEMPORARY_STORAGE_IN_KB...
-     D                 C                   1303                                 BINARY(4)
-     D cJOBL_MAXIMUM_THREADS...
-     D                 C                   1304                                 BINARY(4)
-     D cJOBL_MAXIMUM_TEMPORARY_STORAGE_IN_MM...
-     D                 C                   1305                                 BINARY(4)
-     D cJOBL_MEMORY_POOL_NAME...
-     D                 C                   1306                                 CHAR(10)
-     D cJOBL_MESSAGE_REPLY...
-     D                 C                   1307                                 CHAR(1)
-     D cJOBL_NUMBER_OF_AUXILIARY_IO_REQUESTS...
-     D                 C                   1401                                 BINARY(4)
-     D cJOBL_NUMBER_OF_INTERACTIVE_TRANSACTIONS...
-     D                 C                   1402                                 BINARY(4)
-     D cJOBL_NUMBER_OF_DATABASE_LOCK_WAITS...
-     D                 C                   1403                                 BINARY(4)
-     D cJOBL_NUMBER_OF_INTERNAL_MACHINE_LOCK_WAITS...
-     D                 C                   1404                                 BINARY(4)
-     D cJOBL_NUMBER_OF_NONDATABASE_LOCK_WAITS...
-     D                 C                   1405                                 BINARY(4)
-     D cJOBL_NUMBER_OF_AUXILIARY_IO_REQUESTS_UINT...
-     D                 C                   1406                                 BINARY(8), UIN
-     D cJOBL_OUTPUT_QUEUE_NAME...
-     D                 C                   1501                                 CHAR(20)
-     D cJOBL_OUTPUT_QUEUE_PRIORITY...
-     D                 C                   1502                                 CHAR(2)
-     D cJOBL_PRINT_KEY_FORMAT...
-     D                 C                   1601                                 CHAR(10)
-     D cJOBL_PRINT_TEXT...
-     D                 C                   1602                                 CHAR(30)
-     D cJOBL_PRINTER_DEVICE_NAME...
-     D                 C                   1603                                 CHAR(10)
-     D cJOBL_PURGE...
-     D                 C                   1604                                 CHAR(10)
-     D cJOBL_PRODUCT_RETURN_CODE...
-     D                 C                   1605                                 BINARY(4)
-     D cJOBL_PROGRAM_RETURN_CODE...
-     D                 C                   1606                                 BINARY(4)
-     D cJOBL_PENDING_SIGNAL_SET...
-     D                 C                   1607                                 CHAR(8)
-     D cJOBL_PROCESS_ID_NUMBER...
-     D                 C                   1608                                 BINARY(4)
-     D cJOBL_RESPONSE_TIME_TOTAL...
-     D                 C                   1801                                 BINARY(4)
-     D cJOBL_RUN_PRIORITY...
-     D                 C                   1802                                 BINARY(4)
-     D cJOBL_ROUTING_DATA...
-     D                 C                   1803                                 CHAR(80)
-     D cJOBL_SORT_SEQUENCE_TABLE...
-     D                 C                   1901                                 CHAR(20)
-     D cJOBL_STATUS_MESSAGE_HANDLING...
-     D                 C                   1902                                 CHAR(10)
-     D cJOBL_STATUS_OF_JOB_ON_THE_JOB_QUEUE...
-     D                 C                   1903                                 CHAR(10)
-     D cJOBL_SUBMITTERS_JOB_NAME...
-     D                 C                   1904                                 CHAR(26)
-     D cJOBL_SUBMITTERS_MESSAGE_QUEUE_NAME...
-     D                 C                   1905                                 CHAR(20)
-     D cJOBL_SUBSYSTEM_DESCRIPTION_NAME...
-     D                 C                   1906                                 CHAR(20)
-     D cJOBL_SYSTEM_POOL_IDENTIFIER...
-     D                 C                   1907                                 BINARY(4)
-     D cJOBL_SPECIAL_ENVIRONMENT...
-     D                 C                   1908                                 CHAR(10)
-     D cJOBL_SIGNAL_BLOCKING_MASK...
-     D                 C                   1909                                 CHAR(8)
-     D cJOBL_SIGNAL_STATUS...
-     D                 C                   1910                                 BINARY(4)
-     D cJOBL_SERVER_TYPE...
-     D                 C                   1911                                 CHAR(30)
-     D cJOBL_SPOOLED_FILE_ACTION...
-     D                 C                   1982                                 CHAR(10)
-     D cJOBL_TIME_SEPARATOR...
-     D                 C                   2001                                 CHAR(1)
-     D cJOBL_TIME_SLICE...
-     D                 C                   2002                                 BINARY(4)
-     D cJOBL_TIME_SLICE_END_POOL...
-     D                 C                   2003                                 CHAR(10)
-     D cJOBL_TEMPORARY_STORAGE_USED_IN_KILOBYTES...
-     D                 C                   2004                                 BINARY(4)
-     D cJOBL_TIME_SPENT_ON_DATABASE_LOCK_WAITS...
-     D                 C                   2005                                 BINARY(4)
-     D cJOBL_TIME_SPENT_ON_INTERNAL_MACHINE_LOCK_WAITS...
-     D                 C                   2006                                 BINARY(4)
-     D cJOBL_TIME_SPENT_ON_NONDATABASE_LOCK_WAITS...
-     D                 C                   2007                                 BINARY(4)
-     D cJOBL_THREAD_COUNT...
-     D                 C                   2008                                 BINARY(4)
-     D cJOBL_TEMPORARY_STORAGE_USED_IN_MEGABYTES...
-     D                 C                   2009                                 BINARY(4)
-     D cJOBL_TIME_ZONE_CURRENT_ABBREVIATED_NAME...
-     D                 C                   2020                                 CHAR(10)
-     D cJOBL_TIME_ZONE_CURRENT_FULL_NAME...
-     D                 C                   2021                                 CHAR(50)
-     D cJOBL_TIME_ZONE_CURRENT_MESSAGE_IDENTIFIER...
-     D                 C                   2022                                 CHAR(7)
-     D cJOBL_TIME_ZONE_CURRENT_OFFSET...
-     D                 C                   2023                                 BINARY(4)
-     D cJOBL_TIME_ZONE_DESCRIPTION_NAME...
-     D                 C                   2024                                 CHAR(10)
-     D cJOBL_TIME_MESSAGE_FILE_NAME...
-     D                 C                   2025                                 CHAR(20)
-     D cJOBL_TIME_DAYLIGHT_SAVING_TIME_INDICATOR...
-     D                 C                   2026                                 CHAR(1)
-     D cJOBL_UNIT_OF_WORK_ID...
-     D                 C                   2101                                 CHAR(24)
-     D cJOBL_USER_RETURN_CODE...
-     D                 C                   2102                                 BINARY(4)
-      *
-      /ENDIF
+**free
+/if NOT defined(QUSLJOB)
+/define QUSLJOB
+
+//  List Job (QUSLJOB) API
+dcl-pr QUSLJOB extpgm('QUSLJOB');
+  i_qUsrSpc   char(20) const;
+  i_format    char(8) const;
+  i_qJob      char(26) const;
+  i_status    char(10) const;
+  io_errCode  char(65535) options(*nopass: *varsize); // | optGrp 1
+  i_jobType   char(1) options(*nopass) const; // | optGrp 2
+  i_numFldRtn int(10) options(*nopass) const; // |
+  i_keyFldRtn int(10) options(*nopass: *varsize) const
+    // | dim(256);                                                         // |
+  i_hContinue char(48) options(*nopass) const; // | optGrp 3
+end-pr;
+
+//  Input Parameter Section
+dcl-ds QUSLJOB_inpParm_t qualified based(pDummy);
+  qJobSpc    likeds(qJob_t);
+  status     char(10);
+  qUsrSpc    likeds(qObj_t);
+  format     char(8);
+  jobType    char(1);
+  reserved_1 char(3);
+  numFldRtn  int(10);
+  keyFldRtn  int(10) dim(256);
+  hContinue  char(48);
+end-ds;
+
+//  Header Section
+dcl-ds QUSLJOB_header_t qualified based(pDummy);
+  qJobUsed  likeds(qJob_t);
+  hContinue char(48);
+end-ds;
+
+//  JOBL0100 Format
+dcl-ds jobl0100_t qualified based(pDummy);
+  job         char(10);
+  user        char(10);
+  nbr         char(6);
+  intJobID    char(16);
+  status      char(10);
+  type        char(1);
+  subType     char(1);
+  reserved_01 char(2);
+end-ds;
+
+//  JOBL0200 Format
+dcl-ds jobl0200_t qualified based(pDummy);
+  job         char(10);
+  user        char(10);
+  nbr         char(6);
+  intJobID    char(16);
+  status      char(10);
+  type        char(1);
+  subType     char(1);
+  reserved_01 char(2);
+  jobInfSts   char(1);
+  reserved_2  char(3);
+  numFldRtn   int(10);
+end-ds;
+// field information                  likeds(jobl0201_t)
+
+//  Field Information of Format JOBL0200
+dcl-ds jobl0201_t qualified based(pDummy);
+  length     int(10);
+  key        int(10);
+  dataType   char(1);
+  reserved_1 char(3);
+  dataLength int(10);
+  data       char(256);
+end-ds;
+
+//  Valid Keys                                                             Data type
+dcl-c cJOBL_ACTIVE_JOB_STATUS 0101; // CHAR(4)
+dcl-c cJOBL_ALLOW_MULTIPLE_THREADS 0102; // CHAR(1)
+dcl-c cJOBL_ACTIVE_JOB_STATUS_FOR_JOBS_ENDING 0103; // CHAR(4)
+dcl-c cJOBL_BREAK_MESSAGE_HANDLING 0201; // CHAR(10)
+dcl-c cJOBL_CANCEL_KEY 0301; // CHAR(1)
+dcl-c cJOBL_CCSID 0302; // BINARY(4)
+dcl-c cJOBL_COUNTRY_OR_REGION_ID 0303; // CHAR(2)
+dcl-c cJOBL_PROCESSING_UNIT_TIME 0304; // BINARY(4)
+dcl-c cJOBL_CURRENT_USER_PROFILE 0305; // CHAR(10)
+dcl-c cJOBL_COMPLETION_STATUS 0306; // CHAR(1)
+dcl-c cJOBL_CURRENT_SYSTEM_POOL_IDENTIFIER 0307; // BINARY(4)
+dcl-c cJOBL_CHARACTER_IDENTIFIER_CONTROL 0311; // CHAR(10)
+dcl-c cJOBL_PROCESSING_UNIT_TIME_USED_TOTAL_JOB 0312; // BINARY(8), UIN
+dcl-c cJOBL_PROCESSING_UNIT_TIME_USED_TOTAL_DB 0313; // BINARY(8), UIN
+dcl-c cJOBL_DATE_TIME_JOB_BECAME_ACTIVE 0401; // CHAR(13)
+dcl-c cJOBL_DATE_TIME_JOB_ENTERED_SYSTEM 0402; // CHAR(13)
+dcl-c cJOBL_DATE_TIME_JOB_IS_SCHEDULED_TO_RUN 0403; // CHAR(8)
+dcl-c cJOBL_DATE_TIME_JOB_WAS_PUT_ON_THIS_JOB_QUEUE 0404; // CHAR(8)
+dcl-c cJOBL_DATE_FORMAT 0405; // CHAR(4)
+dcl-c cJOBL_DATE_SEPARATOR 0406; // CHAR(1)
+dcl-c cJOBL_DBCS_CAPABLE 0407; // CHAR(1)
+dcl-c cJOBL_DDM_CONVERSATION_HANDLING 0408; // CHAR(10)
+dcl-c cJOBL_DEFAULT_WAIT 0409; // BINARY(4)
+dcl-c cJOBL_DEVICE_RECOVERY_ACTION 0410; // CHAR(13)
+dcl-c cJOBL_DEVICE_NAME 0411; // CHAR(10)
+dcl-c cJOBL_DEFAULT_CCSID 0412; // BINARY(4)
+dcl-c cJOBL_DECIMAL_FORMAT 0413; // CHAR(1)
+dcl-c cJOBL_DATE_TIME_JOB_ENDED 0418; // CHAR(13)
+dcl-c cJOBL_END_SEVERITY 0501; // BINARY(4)
+dcl-c cJOBL_END_STATUS 0502; // CHAR(1)
+dcl-c cJOBL_EXIT_KEY 0503; // CHAR(1)
+dcl-c cJOBL_FUNCTION_NAME 0601; // CHAR(10)
+dcl-c cJOBL_FUNCTION_TYPE 0602; // CHAR(1)
+dcl-c cJOBL_SIGNED_ON_JOB 0701; // CHAR(1)
+dcl-c cJOBL_GROUP_PROFILE_NAME 0702; // CHAR(10)
+dcl-c cJOBL_GROUP_PROFILE_NAME_SUPPLEMENTAL 0703; // CHAR(150)
+dcl-c cJOBL_INQUIRY_MESSAGE_REPLY 0901; // CHAR(10)
+dcl-c cJOBL_JOB_ACCOUNTING_CODE 1001; // CHAR(15)
+dcl-c cJOBL_JOB_DATE 1002; // CHAR(7)
+dcl-c cJOBL_JOB_DESCRIPTION_NAME 1003; // CHAR(20)
+dcl-c cJOBL_JOB_QUEUE_NAME 1004; // CHAR(20)
+dcl-c cJOBL_JOB_QUEUE_PRIORITY 1005; // CHAR(2)
+dcl-c cJOBL_JOB_SWITCHES 1006; // CHAR(8)
+dcl-c cJOBL_JOB_MESSAGE_QUEUE_FULL_ACTION 1007; // CHAR(10)
+dcl-c cJOBL_JOB_MESSAGE_QUEUE_MAXIMUM_SIZE 1008; // BINARY(4)
+dcl-c cJOBL_JOB_USER_IDENTITY 1012; // CHAR(10)
+dcl-c cJOBL_JOB_USER_IDENTITY_SETTING 1013; // CHAR(1)
+dcl-c cJOBL_JOB_END_REASON 1014; // BINARY(4)
+dcl-c cJOBL_JOB_LOG_PENDING 1015; // CHAR(1)
+dcl-c cJOBL_JOB_TYPE_ENHANCED 1016; // BINARY(4)
+dcl-c cJOBL_JOB_LOCAL_TIME 1017; // CHAR(8)
+dcl-c cJOBL_JOB_LOG_OUTPUT 1018; // CHAR(10)
+dcl-c cJOBL_LANGUAGE_ID 1201; // CHAR(3)
+dcl-c cJOBL_LOGGING_LEVEL 1202; // CHAR(1)
+dcl-c cJOBL_LOGGING_OF_CL_PROGRAMS 1203; // CHAR(10)
+dcl-c cJOBL_LOGGING_SEVERITY 1204; // BINARY(4)
+dcl-c cJOBL_LOGGING_TEXT 1205; // CHAR(10)
+dcl-c cJOBL_MODE_NAME 1301; // CHAR(8)
+dcl-c cJOBL_MAXIMUM_PROCESSING_UNIT_TIME 1302; // BINARY(4)
+dcl-c cJOBL_MAXIMUM_TEMPORARY_STORAGE_IN_KB 1303; // BINARY(4)
+dcl-c cJOBL_MAXIMUM_THREADS 1304; // BINARY(4)
+dcl-c cJOBL_MAXIMUM_TEMPORARY_STORAGE_IN_MM 1305; // BINARY(4)
+dcl-c cJOBL_MEMORY_POOL_NAME 1306; // CHAR(10)
+dcl-c cJOBL_MESSAGE_REPLY 1307; // CHAR(1)
+dcl-c cJOBL_NUMBER_OF_AUXILIARY_IO_REQUESTS 1401; // BINARY(4)
+dcl-c cJOBL_NUMBER_OF_INTERACTIVE_TRANSACTIONS 1402; // BINARY(4)
+dcl-c cJOBL_NUMBER_OF_DATABASE_LOCK_WAITS 1403; // BINARY(4)
+dcl-c cJOBL_NUMBER_OF_INTERNAL_MACHINE_LOCK_WAITS 1404; // BINARY(4)
+dcl-c cJOBL_NUMBER_OF_NONDATABASE_LOCK_WAITS 1405; // BINARY(4)
+dcl-c cJOBL_NUMBER_OF_AUXILIARY_IO_REQUESTS_UINT 1406; // BINARY(8), UIN
+dcl-c cJOBL_OUTPUT_QUEUE_NAME 1501; // CHAR(20)
+dcl-c cJOBL_OUTPUT_QUEUE_PRIORITY 1502; // CHAR(2)
+dcl-c cJOBL_PRINT_KEY_FORMAT 1601; // CHAR(10)
+dcl-c cJOBL_PRINT_TEXT 1602; // CHAR(30)
+dcl-c cJOBL_PRINTER_DEVICE_NAME 1603; // CHAR(10)
+dcl-c cJOBL_PURGE 1604; // CHAR(10)
+dcl-c cJOBL_PRODUCT_RETURN_CODE 1605; // BINARY(4)
+dcl-c cJOBL_PROGRAM_RETURN_CODE 1606; // BINARY(4)
+dcl-c cJOBL_PENDING_SIGNAL_SET 1607; // CHAR(8)
+dcl-c cJOBL_PROCESS_ID_NUMBER 1608; // BINARY(4)
+dcl-c cJOBL_RESPONSE_TIME_TOTAL 1801; // BINARY(4)
+dcl-c cJOBL_RUN_PRIORITY 1802; // BINARY(4)
+dcl-c cJOBL_ROUTING_DATA 1803; // CHAR(80)
+dcl-c cJOBL_SORT_SEQUENCE_TABLE 1901; // CHAR(20)
+dcl-c cJOBL_STATUS_MESSAGE_HANDLING 1902; // CHAR(10)
+dcl-c cJOBL_STATUS_OF_JOB_ON_THE_JOB_QUEUE 1903; // CHAR(10)
+dcl-c cJOBL_SUBMITTERS_JOB_NAME 1904; // CHAR(26)
+dcl-c cJOBL_SUBMITTERS_MESSAGE_QUEUE_NAME 1905; // CHAR(20)
+dcl-c cJOBL_SUBSYSTEM_DESCRIPTION_NAME 1906; // CHAR(20)
+dcl-c cJOBL_SYSTEM_POOL_IDENTIFIER 1907; // BINARY(4)
+dcl-c cJOBL_SPECIAL_ENVIRONMENT 1908; // CHAR(10)
+dcl-c cJOBL_SIGNAL_BLOCKING_MASK 1909; // CHAR(8)
+dcl-c cJOBL_SIGNAL_STATUS 1910; // BINARY(4)
+dcl-c cJOBL_SERVER_TYPE 1911; // CHAR(30)
+dcl-c cJOBL_SPOOLED_FILE_ACTION 1982; // CHAR(10)
+dcl-c cJOBL_TIME_SEPARATOR 2001; // CHAR(1)
+dcl-c cJOBL_TIME_SLICE 2002; // BINARY(4)
+dcl-c cJOBL_TIME_SLICE_END_POOL 2003; // CHAR(10)
+dcl-c cJOBL_TEMPORARY_STORAGE_USED_IN_KILOBYTES 2004; // BINARY(4)
+dcl-c cJOBL_TIME_SPENT_ON_DATABASE_LOCK_WAITS 2005; // BINARY(4)
+dcl-c cJOBL_TIME_SPENT_ON_INTERNAL_MACHINE_LOCK_WAITS 2006; // BINARY(4)
+dcl-c cJOBL_TIME_SPENT_ON_NONDATABASE_LOCK_WAITS 2007; // BINARY(4)
+dcl-c cJOBL_THREAD_COUNT 2008; // BINARY(4)
+dcl-c cJOBL_TEMPORARY_STORAGE_USED_IN_MEGABYTES 2009; // BINARY(4)
+dcl-c cJOBL_TIME_ZONE_CURRENT_ABBREVIATED_NAME 2020; // CHAR(10)
+dcl-c cJOBL_TIME_ZONE_CURRENT_FULL_NAME 2021; // CHAR(50)
+dcl-c cJOBL_TIME_ZONE_CURRENT_MESSAGE_IDENTIFIER 2022; // CHAR(7)
+dcl-c cJOBL_TIME_ZONE_CURRENT_OFFSET 2023; // BINARY(4)
+dcl-c cJOBL_TIME_ZONE_DESCRIPTION_NAME 2024; // CHAR(10)
+dcl-c cJOBL_TIME_MESSAGE_FILE_NAME 2025; // CHAR(20)
+dcl-c cJOBL_TIME_DAYLIGHT_SAVING_TIME_INDICATOR 2026; // CHAR(1)
+dcl-c cJOBL_UNIT_OF_WORK_ID 2101; // CHAR(24)
+dcl-c cJOBL_USER_RETURN_CODE 2102; // BINARY(4)
+
+/endif
