@@ -17,7 +17,7 @@
 //=====================================================================*
 //  History:                                                           *
 //                                                                     *
-//  Datum       Name          nderung                                 *
+//  Datum       Name          Änderung                                 *
 //  ----------  ------------  ---------------------------------------  *
 //  18.12.2008  Th.Raddatz    Changed program to work with LSTJOB 2.1. *
 //                                                                     *
@@ -54,7 +54,7 @@ dcl-pr LSTJOB_T1 extpgm('LSTJOB_T');
   gi_job_2 char(10) const;
 end-pr;
 
-//  Prototypen fr interne Funktionen
+//  Prototypen für interne Funktionen
 dcl-pr p_main;
   i_job_1 char(10) const;
   i_job_2 char(10) const;
@@ -116,7 +116,7 @@ dcl-proc p_main export;
 
   //-------------------------------------------------------------------
 
-  //  Ausgeben berschrift
+  //  Ausgeben überschrift
   Clear screen_msg;
   Dsply screen_msg;
   Clear screen_msg;
@@ -132,7 +132,7 @@ dcl-proc p_main export;
   col4 = *ALL'-';
   Dsply screen_msg;
 
-  //  ffnen der 1. Liste
+  //  öffnen der 1. Liste
   isDone1 = f_opnJobLst(i_job_1     :
                        '*ALL'      :
                        '*ALL'      :
@@ -141,7 +141,7 @@ dcl-proc p_main export;
                        handle1     :
                        msg         );
 
-  //  ffnen der 2. Liste
+  //  öffnen der 2. Liste
   isDone2 = f_opnJobLst(i_job_2     :
                        '*ALL'      :
                        '*ALL'      :
@@ -186,7 +186,7 @@ dcl-proc p_main export;
       Clear jobi_2;
     Endif;
 
-    //  Anzeigen gelesene Eintrge
+    //  Anzeigen gelesene Einträge
     Reset screen_msg;
     col1 = data_1.job;
     col2 = jobi_1.sbsDName;
@@ -194,7 +194,7 @@ dcl-proc p_main export;
     col4 = jobi_2.sbsDName;
     Dsply screen_msg;
 
-    //  Lesen weitere Eintrge Liste 1
+    //  Lesen weitere Einträge Liste 1
     isDone1 = f_getNextJob(handle1  :
                          data      );
     If isDone1;
@@ -203,7 +203,7 @@ dcl-proc p_main export;
       Clear data_1;
     Endif;
 
-    //  Lesen weitere Eintrge Liste 2
+    //  Lesen weitere Einträge Liste 2
     isDone2 = f_getNextJob(handle2  :
                          data      );
     If isDone2;
@@ -222,10 +222,10 @@ dcl-proc p_main export;
    %trim(%editc(f_getNumJobAvl(handle2): 'Z'));
   Dsply screen_msg ok;
 
-  //  Schlieen 1. Liste
+  //  Schließen 1. Liste
   isDone1 = f_cloJobLst(handle1 );
 
-  //  Schlieen 2. Liste
+  //  Schließen 2. Liste
   isDone2 = f_cloJobLst(handle2 );
 
   Return;

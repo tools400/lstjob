@@ -15,7 +15,7 @@
 //                                                               *
 //  Kurzdokumentation :                                          *
 //                                                               *
-//  Prototypen fr Serviceprogramm LSTJOB                        *
+//  Prototypen für Serviceprogramm LSTJOB                        *
 //                                                               *
 //===============================================================*
 

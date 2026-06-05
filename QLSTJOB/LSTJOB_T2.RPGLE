@@ -17,7 +17,7 @@
 //=====================================================================*
 //  History:                                                           *
 //                                                                     *
-//  Datum       Name          nderung                                 *
+//  Datum       Name          Änderung                                 *
 //  ----------  ------------  ---------------------------------------  *
 //                                                                     *
 //=====================================================================*
@@ -51,7 +51,7 @@ dcl-pr LSTJOB_T2 extpgm('LSTJOB_T2');
   gi_job char(10) const;
 end-pr;
 
-//  Prototypen fr interne Funktionen
+//  Prototypen für interne Funktionen
 dcl-pr p_main;
   i_job char(10) const;
 end-pr;
@@ -85,7 +85,7 @@ dcl-proc p_main export;
   dcl-ds msg likeds(msg_t) inz;
   //-------------------------------------------------------------------
 
-  // ffnen Liste der Jobs
+  // öffnen Liste der Jobs
   hasJob = f_opnJobLst(i_job: '*ALL': '*ALL': '*ACTIVE'
                        : cLSTJOB_ORDERBY_NONE: hJobs);
 

@@ -17,7 +17,7 @@
 //=====================================================================*
 //  History:                                                           *
 //                                                                     *
-//  Datum       Name          nderung                                 *
+//  Datum       Name          Änderung                                 *
 //  ----------  ------------  ---------------------------------------  *
 //  30.12.2004  Th.Raddatz    Changed LSTJOB to use service program    *
 //                            BASICS1.                                 *
