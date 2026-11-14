@@ -1,6 +1,6 @@
 # LSTJOB - A Tools/400 Service Program
 
-LSTJOB is service program that for retrieving a list of jobs.
+LSTJOB is a service program for retrieving a list of jobs.
 
 ## Dependencies
 
